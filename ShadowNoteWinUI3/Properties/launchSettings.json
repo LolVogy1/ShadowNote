@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ShadowNoteWinUI3 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ShadowNoteWinUI3 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
