@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI;
+using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -23,14 +25,36 @@ namespace ShadowNoteWinUI3
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+
+        private AppWindow _apw;
+        private OverlappedPresenter _presenter;
         public MainWindow()
         {
             this.InitializeComponent();
+
+            GetAppWindowAndPresenter();
+            _presenter.IsMaximizable = false;
+            _presenter.IsMinimizable = false;
+            _presenter.IsAlwaysOnTop = true;
+            _presenter.IsResizable = false;
+            _presenter.SetBorderAndTitleBar(false, false);
+
+            //ExtendsContentIntoTitleBar = true;
+        }
+        public void GetAppWindowAndPresenter()
+        {
+            var hWind = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            WindowId winID = Win32Interop.GetWindowIdFromWindow(hWind);
+            _apw = AppWindow.GetFromWindowId(winID);
+            _apw.Title = "";
+            //_apw.IsShownInSwitchers = false;
+            _apw.Resize(new Windows.Graphics.SizeInt32((int)Bounds.Width,(int)Bounds.Height/2)); //This is set to 1920x1080 on my 1440p monitor?
+            //_apw.Resize(new Windows.Graphics.SizeInt32(2560,720));
+            _apw.Move(new Windows.Graphics.PointInt32(0,0));
+
+            _presenter = _apw.Presenter as OverlappedPresenter;
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
-        }
     }
+
 }
