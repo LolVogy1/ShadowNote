@@ -7,4 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-</Window>
+
+    <GridView
+        x:Name="NoteGridView"
+        ItemsSource="{x:Bind ViewModel.Notes}"
+        IsItemClickEnabled="True"
+        CanDragItems="True"
+        AllowDrop="True"
+        CanReorderItems="True"
+        SelectionMode="Single"
+        SelectionChanged="NoteGridView_SelectionChanged"
+        ItemClick="NoteGridView_ItemClick"
+        FlowDirection="LeftToRight">
+        <GridView.ItemTemplate>
+            <DataTemplate  x:DataType="local:Notepad">
+                <RelativePanel  Width="300" MinHeight="300">
+                    <Image x:Name="image"
+                   Width="18"
+                   Margin="0,4,0,0"
+                   RelativePanel.AlignLeftWithPanel="True"
+                   RelativePanel.AlignTopWithPanel="True"
+                   Stretch="Uniform"/>
+                    <TextBlock x:Name="title" Style='{StaticResource BaseTextBlockStyle}' Margin='8,0,0,0' 
+                   Text='{x:Bind Title}' RelativePanel.RightOf='image' RelativePanel.AlignTopWithPanel='True'/>
+                    <RichEditBox x:Name="note" TextWrapping="Wrap" RelativePanel.Below="title"/>
+                </RelativePanel>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+
+
+
+
+</Window>    
+    
+    
+
+

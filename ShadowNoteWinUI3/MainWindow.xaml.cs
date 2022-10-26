@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,6 +32,7 @@ namespace ShadowNoteWinUI3
         public MainWindow()
         {
             this.InitializeComponent();
+            this.ViewModel = new NotepadModel();
 
             GetAppWindowAndPresenter();
             _presenter.IsMaximizable = false;
@@ -41,6 +43,9 @@ namespace ShadowNoteWinUI3
 
             //ExtendsContentIntoTitleBar = true;
         }
+
+        public NotepadModel ViewModel { get; set; }
+
         public void GetAppWindowAndPresenter()
         {
             var hWind = WinRT.Interop.WindowNative.GetWindowHandle(this);
@@ -53,6 +58,38 @@ namespace ShadowNoteWinUI3
             _apw.Move(new Windows.Graphics.PointInt32(0,0));
 
             _presenter = _apw.Presenter as OverlappedPresenter;
+        }
+
+        private void NoteGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void NoteGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+    }
+
+    // CustomDataObject class definition
+    public class Notepad
+    {
+        public string Title { get; set; }
+        public string NoteText { get; set; }
+
+        public Notepad() { }
+    }
+
+    public class NotepadModel
+    {
+        private Notepad defaultNotepad = new Notepad();
+        public Notepad DefaultNotepad { get { return this.defaultNotepad; } }
+        private ObservableCollection<Notepad> notes = new ObservableCollection<Notepad>();
+        public ObservableCollection<Notepad> Notes { get { return this.notes; } }
+        public NotepadModel() 
+        {
+            this.notes.Add(new Notepad() { Title = "test", NoteText = "testing notepad" });
+            this.notes.Add(new Notepad() { Title = "test2", NoteText = "testing notepad" });
         }
 
     }
