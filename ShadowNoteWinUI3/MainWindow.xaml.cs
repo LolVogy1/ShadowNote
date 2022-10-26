@@ -53,8 +53,8 @@ namespace ShadowNoteWinUI3
             _apw = AppWindow.GetFromWindowId(winID);
             _apw.Title = "";
             //_apw.IsShownInSwitchers = false;
-            _apw.Resize(new Windows.Graphics.SizeInt32((int)Bounds.Width,(int)Bounds.Height/2)); //This is set to 1920x1080 on my 1440p monitor?
-            //_apw.Resize(new Windows.Graphics.SizeInt32(2560,720));
+            //_apw.Resize(new Windows.Graphics.SizeInt32((int)Bounds.Width,(int)Bounds.Height/2)); //This is set to 1920x1080 on my 1440p monitor?
+            _apw.Resize(new Windows.Graphics.SizeInt32(2560,720));
             _apw.Move(new Windows.Graphics.PointInt32(0,0));
 
             _presenter = _apw.Presenter as OverlappedPresenter;
@@ -66,6 +66,26 @@ namespace ShadowNoteWinUI3
         }
 
         private void NoteGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void formatButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void newNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void italicButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

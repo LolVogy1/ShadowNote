@@ -19,21 +19,77 @@
         SelectionChanged="NoteGridView_SelectionChanged"
         ItemClick="NoteGridView_ItemClick"
         FlowDirection="LeftToRight">
+
+        <GridView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <ItemsWrapGrid x:Name="MaxItemsWrapGrid"
+                           MaximumRowsOrColumns="6"
+                           Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+
+        </GridView.ItemsPanel>
+        
         <GridView.ItemTemplate>
             <DataTemplate  x:DataType="local:Notepad">
-                <RelativePanel  Width="300" MinHeight="300">
+                <RelativePanel  Width="300" MinHeight="300"
+                                Background="Black">
+                    <RelativePanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Margin" Value="0,0,8,0" />
+                        </Style>
+                    </RelativePanel.Resources>
+
                     <Image x:Name="image"
-                   Width="18"
-                   Margin="0,4,0,0"
-                   RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.AlignTopWithPanel="True"
-                   Stretch="Uniform"/>
-                    <TextBlock x:Name="title" Style='{StaticResource BaseTextBlockStyle}' Margin='8,0,0,0' 
-                   Text='{x:Bind Title}' RelativePanel.RightOf='image' RelativePanel.AlignTopWithPanel='True'/>
-                    <RichEditBox x:Name="note" TextWrapping="Wrap" RelativePanel.Below="title"/>
+                           Width="18"
+                           Margin="0,4,0,0"
+                           RelativePanel.AlignLeftWithPanel="True"
+                           RelativePanel.AlignTopWithPanel="True"
+                           Stretch="Uniform"/>
+                    <TextBlock x:Name="title" 
+                               Style='{StaticResource BaseTextBlockStyle}' 
+                               Margin='8,0,0,0' 
+                               Text='{x:Bind Title}' 
+                               RelativePanel.RightOf='image' 
+                               RelativePanel.AlignTopWithPanel='True'/>
+                    <Button Content="+" 
+                            x:Name="newNoteButton" 
+                            Click="newNoteButton_Click"
+                            RelativePanel.AlignTopWithPanel="True" 
+                            RelativePanel.AlignRightWithPanel="True" 
+                            Width="30" 
+                            Height="30" />
+                    <Button AutomationProperties.Name="Bold" 
+                            ToolTipService.ToolTip="Bold" Click="Button_Click"
+                            RelativePanel.LeftOf="italicButton" >
+                        <Button.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8DD;"/>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="italicButton" 
+                            Click="italicButton_Click"
+                            AutomationProperties.Name="Italic" 
+                            ToolTipService.ToolTip="Italic"
+                            RelativePanel.LeftOf="newNoteButton">
+                        <Button.Content>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8DB;"/>
+                        </Button.Content>
+                    </Button>
+
+                    <RichEditBox x:Name="note" 
+                                 TextWrapping="Wrap" 
+                                 RelativePanel.Below="newNoteButton" 
+                                 Width="300" 
+                                 Height="240"/>
+                    <Button x:Name="formatButton"
+                            Click="formatButton_Click"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="note"/>
                 </RelativePanel>
             </DataTemplate>
         </GridView.ItemTemplate>
+        
     </GridView>
 
 
